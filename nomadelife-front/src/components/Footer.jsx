@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Footer.module.css'
+
 export const Footer  = () => {
   return (
     <>
@@ -10,4 +11,5 @@ export const Footer  = () => {
     </>
   )
 }
+
 export default Footer
