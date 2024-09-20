@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
 import { getFirestore} from 'firebase/Firestore'
+
 const firebaseConfig = {
   apiKey: "AIzaSyCoeFQCEkHjz1cioB8GqpRfgvfyqGZMMyE",
   authDomain: "nomadelide-mi.firebaseapp.com",
@@ -11,7 +12,6 @@ const firebaseConfig = {
   measurementId: "G-51VE8SHWR1"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const analytics = getAnalytics(app)
 const db = getFirestore(app)
