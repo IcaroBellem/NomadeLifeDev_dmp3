@@ -1,39 +1,87 @@
-import React from 'react'
-import styles from './NavBar.module.css'
+import { NavLink } from "react-router-dom";
+import styles from "./NavBar.module.css";
+import { useAuthValue } from "../context/AuthContext";
+import { useAuthentication } from "../hooks/useAuthentication";
 
-const NavBar = () => {
+const Navbar = () => {
+  const { user } = useAuthValue();
+  const { logout } = useAuthentication();
   return (
-    <>
     <nav className={styles.navbar}>
-      <div className={styles.brand}>
-        Nomade <span>DEV</span>
-      </div>
+      <NavLink to="/" className={styles.brand}>
+        NomadeLife <span>DEV</span>
+      </NavLink>
       <ul className={styles.links_list}>
         <li>
-          <a href="#">Home</a>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? styles.active : "")}
+          >
+            Home
+          </NavLink>
         </li>
         <li>
-          <a href="#">Login</a>
+          <NavLink
+            to="/about"
+            className={({ isActive }) => (isActive ? styles.active : "")}
+          >
+            About
+          </NavLink>
         </li>
-        <li>
-          <a href="#">Register</a>
-        </li>
-        <li>
-          <a href="#">New Post</a>
-        </li>
-        <li>
-          <a href="#">Dashboard</a>
-        </li>
-        <li>
-          <a href="#">About</a>
-        </li>
-        <li>
-          <a href="#">Exit</a>
-        </li>
+
+        {!user && (
+          <>
+            <li>
+              <NavLink
+                to="/login"
+                className={({ isActive }) => (isActive ? styles.active : "")}
+              >
+                Login
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/register"
+                className={({ isActive }) => (isActive ? styles.active : "")}
+              >
+                Register
+              </NavLink>
+            </li>
+          </>
+        )}
+        {user && (
+          <>
+            <li>
+              <NavLink
+                to="/posts/create"
+                className={({ isActive }) => (isActive ? styles.active : "")}
+              >
+                Create Post
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) => (isActive ? styles.active : "")}
+              >
+                Dashboard
+              </NavLink>
+            </li>
+            {user && (
+              <li>
+                <NavLink
+                  className={({ isActive }) => (isActive ? styles.active : "")}
+                  onClick={logout}
+                >
+                  Logout
+                </NavLink>
+              </li>
+            )}
+          </>
+        )}
       </ul>
     </nav>
-    </>
-  )
-}
+  );
+};
 
-export default NavBar
+export default Navbar;
