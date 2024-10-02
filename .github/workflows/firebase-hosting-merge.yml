@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run:  |
+      - run: |
               cd nomadelife-front
+              npm install
               npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
