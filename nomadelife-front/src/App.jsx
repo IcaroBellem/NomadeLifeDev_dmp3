@@ -26,7 +26,10 @@ function App() {
 
   const loadingUser = user === undefined
 
+  const loadingUser = user === undefined;
+
   useEffect(() => {
+<<<<<<< HEAD
     onAuthStateChanged(auth, user => {
       setUser(user)
     })
@@ -51,14 +54,54 @@ function App() {
               <Route path='/posts/:id' element={<Post />}></Route>
               <Route path='/search' element={<Search/>}></Route>
               <Route path='/posts/edit/:id' element={user ? <EditPost /> : <Navigate to="/login"/>}></Route>
+=======
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+  }, [auth]);
+
+  if (loadingUser) {
+    return <p>Carregando...</p>;
+  }
+
+  return (
+    <div className="App">
+      <AuthProvider value={{ user }}>
+        <BrowserRouter>
+          <NavBar />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route
+                path="/login"
+                element={!user ? <Login /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/register"
+                element={!user ? <Register /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/posts/create"
+                element={user ? <CreatePost /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/dashboard"
+                element={user ? <Dashboard /> : <Navigate to="/login" />}
+              />
+>>>>>>> b1bca25 (Added Register With Ajusts)
             </Routes>
           </div>
           <Footer />
         </BrowserRouter>
       </AuthProvider>
+<<<<<<< HEAD
     </>
   )
 }
+=======
+    </div>
+  );
+};
+>>>>>>> b1bca25 (Added Register With Ajusts)
 
-
-export default App
+export default App;
