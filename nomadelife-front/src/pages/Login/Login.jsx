@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './Login.module.css'
 import { useState, useEffect } from 'react'
 import { useAuthentication } from '../../hooks/useAuthentication'
@@ -10,26 +9,37 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
-    const { login, error:authError, loading } = useAuthentication()
+    const { login, error:authError, loading, setLoading } = useAuthentication()
     const navigate = useNavigate()
 
-    const handlerSubmit = async(e) =>{
-        e.preventDefault()
-        setError('')
-        const user = {
-            email,
-            password
-        }
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      };
+      
+      const handlerSubmit = async(e) =>{
+          e.preventDefault()
+          setError('');
+            
+            if (!validateEmail(email)) {
+                setError("Email inválido");
+                return;
+            };
 
-        const res = await login(user)
-
-        console.table(res)
-        navigate("/post/create")
-    }
-
+            try{
+              setLoading(true)
+              await login({email, password})
+              navigate("/")
+            } catch{
+                setError("Email ou senha inválidos")
+                setLoading(false)
+            }
+        }   
+    
     useEffect(() =>{
         if(authError){
             setError(authError)
+            setLoading(false)
         }
     }, [authError])
 
@@ -65,6 +75,7 @@ const Login = () => {
             {error && <p className='error'>{error}</p>}
         </form>
     </div>
+    
   )
 }
 

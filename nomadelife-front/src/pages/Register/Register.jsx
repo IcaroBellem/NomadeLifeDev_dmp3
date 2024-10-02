@@ -4,12 +4,17 @@ import { useAuthentication } from "../../hooks/useAuthentication";
 
 const Register = () => {
   const [displayName, setDisplayName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const [confirmPassowrd, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
 
   const { createUser, error: authError, loading } = useAuthentication();
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,19 +28,29 @@ const Register = () => {
     };
 
     if (password !== confirmPassowrd) {
-      setError("Password not match");
+      setError("As senhas não se coincidem");
       return;
     }
 
-    const res = await createUser(user);
-    console.log(res);
-  };
+    if (!validateEmail(email)) {
+        setError("Email inválido");
+        return;
+      }
+
+      try {
+        await createUser(user);
+      } catch {
+        setError("Erro ao criar usuário. Tente novamente.");
+    };
+};
 
   useEffect(() => {
     if (authError) {
       setError(authError);
     }
   }, [authError]);
+  
+
   return (
     <div className={styles.register}>
       <h1>Compartilhe suas experiências com outros nomades</h1>
