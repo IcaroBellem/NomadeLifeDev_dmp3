@@ -38,16 +38,15 @@ const Register = () => {
   }, [authError]);
   return (
     <div className={styles.register}>
-      <h1>Register for you are allow to post</h1>
-      <p>Create your user and Show your histories</p>
+      <h1>Compartilhe suas experiências com outros nomades</h1>
       <form action="" onSubmit={handleSubmit}>
         <label htmlFor="">
-          <span>Name:</span>
+          <span>Nome:</span>
           <input
             type="text"
             name="displayName"
             required
-            placeholder="Name of user"
+            placeholder="Nome do Usuário"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
           />
@@ -58,41 +57,41 @@ const Register = () => {
             type="email"
             name="email"
             required
-            placeholder="Email of user"
+            placeholder="Email do Usuário"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
         <label htmlFor="">
-          <span>Password:</span>
+          <span>Senha:</span>
           <input
             type="password"
             name="password"
             required
-            placeholder="Password of user 6 characters"
+            placeholder="Senha deve ter no mínimo 6 caracteres"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <label htmlFor="">
-          <span>Confirm Password:</span>
+          <span>Confirmar Senha:</span>
           <input
             type="password"
             name="confirmPassword"
             required
-            placeholder="Confirm Password of user"
+            placeholder="Confirme sua Senha"
             value={confirmPassowrd}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </label>
         {!loading && (
           <button type="submit" className="btn">
-            Register
+            Cadastrar
           </button>
         )}
         {loading && (
           <button type="submit" disabled className="btn">
-            Wait...
+            Carregando...
           </button>
         )}
 
