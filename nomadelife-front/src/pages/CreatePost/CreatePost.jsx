@@ -1,11 +1,11 @@
-import {useState} from 'react'
 
-const CreatePost = () => {
+import { useState } from 'react'
+
+export const CreatePost = () => {
   return (
     <>
-     <div>CreatePost</div>
     </>
   )
 }
 
-export default CreatePost
+export default CreatePost;
