@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import { NavLink } from "react-router-dom"
 import { useAuthentication } from "../hooks/useAuthentication"
 import { useAuthValue } from "../context/AuthContext"
 import styles from "./Navbar.module.css"
 import sair from "../../public/exit-svgrepo-com.svg"
 import logo from "./../../public/logoDevBlog.png"
+=======
+import { NavLink } from "react-router-dom";
+import styles from "./NavBar.module.css";
+import { useAuthValue } from "../context/AuthContext";
+import { useAuthentication } from "../hooks/useAuthentication";
+>>>>>>> 403014c (Update NavBar.jsx)
 
 const Navbar = () => {
   const { logout } = useAuthentication()
