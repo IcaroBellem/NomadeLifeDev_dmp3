@@ -1,5 +1,5 @@
 import styles from './CreatePost.module.css'
-import { useNavigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuthValue } from '../../context/AuthContext'
 import { useState } from 'react'
 import { useInsertDocument } from '../../hooks/useInsertDocument'
