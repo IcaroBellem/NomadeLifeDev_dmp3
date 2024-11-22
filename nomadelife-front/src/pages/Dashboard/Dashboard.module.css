@@ -1,3 +1,4 @@
+/* Estilos para a área do dashboard */
 .dashboard {
   text-align: center;
   display: flex;
@@ -6,28 +7,30 @@
   align-items: center;
 }
 
-.dashboard h2 {
+.dashboard_heading {
   font-size: 2.2em;
   margin-bottom: 0.5em;
 }
 
-.dashboard p {
+.dashboard_description {
   color: #aaa;
   margin-bottom: 1em;
 }
 
+/* Estilos para quando não há posts */
 .noposts {
   text-align: center;
 }
 
-.noposts p {
+.noposts_description {
   margin-bottom: 1.5em;
 }
 
-.noposts a {
+.noposts_link {
   padding: 10px 25px;
 }
 
+/* Estilos para o cabeçalho do post */
 .post_header {
   display: flex;
   justify-content: space-between;
@@ -37,6 +40,7 @@
   padding: 10px;
 }
 
+/* Estilos para as linhas de post */
 .post_row {
   display: flex;
   justify-content: space-between;
@@ -46,12 +50,12 @@
   padding: 10px;
 }
 
-.post_row p {
+.post_content {
   color: #000;
 }
 
-.post_row button,
-.post_row a {
+.post_action_button,
+.post_action_link {
   margin: 0 5px;
   height: 30px;
   width: 100px;
