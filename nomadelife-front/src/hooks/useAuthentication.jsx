@@ -1,5 +1,6 @@
 import { db } from '../firebase/config'
 import {
+
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -100,11 +101,13 @@ export const useAuthentication = () => {
     }, [])
 
     return{
+        db,
         auth,
         createUser,
         error,
         loading,
         logout,
-        login
+        login,
+        setLoading
     }
 }

@@ -1,62 +1,44 @@
-import styles from './Dashboard.module.css'
-import { Link } from 'react-router-dom'
-
+import { Link } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext'
-import { useFetchDocuments } from "../../hooks/useFetchDocuments"
-import { useDeleteDocument } from "../../hooks/useDeleteDocument"
+import { useDeleteDocument } from '../../hooks/useDeleteDocument';
+import styles from './Dashboard.module.css'
+import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
-import React from 'react'
-import logo from '/logo-quadrada.png'
+
 
 const Dashboard = () => {
   const { user } = useAuthValue()
-  const uid = user.uid
+  const uid = user.uid;
 
-  const { documents: posts } = useFetchDocuments("posts",null,uid)
-  const { deleteDocument } = useDeleteDocument("posts")
-
-  console.log(uid)
+  const { documents: posts } = useFetchDocuments("posts", null, uid)
   console.log(posts)
-
+  console.log(uid)
+  const { deleteDocument } = useDeleteDocument("posts")
   return (
     <div className={styles.dashboard}>
-    <h2>Dashboard</h2>
-    <p>Gerencie os seus posts</p>
-    {posts && posts.length === 0 ? (
-      <div className={styles.noposts}>
-        <p>Não foram encontrados posts</p>
-        <Link to="/posts/create" className="btn">
-          Criar primeiro post
-        </Link>
-      </div>
-    ) : (
-      <div className={styles.post_header}>
-        <span>Título</span>
-        <span>Ações</span>
-      </div>
-    )}
-
-    {posts &&
-      posts.map((post) => (
-        <div className={styles.post_row} key={post.id}>
-          <p>{post.title}</p>
-          <div className={styles.actions}>
-            <Link to={`/posts/${post.id}`} className="btn btn-outline">
-              Ver
-            </Link>
-            <Link to={`/posts/edit/${post.id}`} className="btn btn-outline">
-              Editar
-            </Link>
-            <button
-              onClick={() => deleteDocument(post.id)}
-              className="btn btn-outline btn-danger"
-            >
-              Excluir
-            </button>
-          </div>
+      <h2>Dashboard</h2>
+      <p>Gerencie seus Posts</p>
+      {posts && posts.length === 0 ? (
+        <div className={styles.noposts}>
+          <p>Você não tem nenhum post</p>
+          <Link to="/post/create" className='btn'>Criar Post</Link>
         </div>
-      ))}
-  </div>
+      ) : (
+        <div className={styles.post_header}>
+          <span>titulo</span>
+          <span>ações</span>
+        </div>
+      )}
+
+      {posts && posts.map((post) => (
+            <div key={post.id}> 
+              <Link to={`/posts/${post.id}`} className='btn btn-outline'>Ver</Link>
+              <Link className='btn btn-outline' to={`/posts/edit/${post.id}`}>Editar</Link>
+              <button className='btn btn-outline btn-danger' onClick={() => deleteDocument(post.id)}>Excluir</button>
+            </div>
+          ))}
+
+    </div>
   )
 }
 

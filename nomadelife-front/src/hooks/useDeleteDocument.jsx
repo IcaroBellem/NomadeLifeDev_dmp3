@@ -1,12 +1,10 @@
 import { useState, useEffect, useReducer } from "react";
 import { db } from "../firebase/config";
 import { doc, deleteDoc } from "firebase/firestore";
-
 const initialState = {
   loading: null,
   error: null,
 };
-
 const deleteReducer = (state, action) => {
   switch (action.type) {
     case "LOADING":

@@ -15,9 +15,10 @@ jobs:
       - uses: actions/checkout@v4
       - run:  |
               cd nomadelife-front
+              npm install
               npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NOMADELIFE_VSI }}
-          projectId: nomadelife-vsi
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NOMADELIDE_MI }}
+          projectId: nomadelide-mi
