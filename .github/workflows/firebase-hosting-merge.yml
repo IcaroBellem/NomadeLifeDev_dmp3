@@ -19,4 +19,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NOMADELIDE_MI }}
           channelId: live
-          projectId: nomadelife-vsi
+          projectId: nomadelide-mi
