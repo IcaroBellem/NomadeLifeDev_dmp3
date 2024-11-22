@@ -1,15 +1,20 @@
-import { NavLink } from "react-router-dom";
-import styles from "./NavBar.module.css";
-import { useAuthValue } from "../context/AuthContext";
-import { useAuthentication } from "../hooks/useAuthentication";
+import { NavLink } from "react-router-dom"
+import { useAuthentication } from "../hooks/useAuthentication"
+import { useAuthValue } from "../context/AuthContext"
+import styles from "./NavBar.module.css"
+import sair from "../../public/exit-svgrepo-com.svg"
+import logo from "./../../public/logoDevBlog.png"
 
 const Navbar = () => {
-  const { user } = useAuthValue();
-  const { logout } = useAuthentication();
+  const { logout } = useAuthentication()
+  const { user } = useAuthValue()
+  console.log(user)
   return (
     <nav className={styles.navbar}>
-      <NavLink to="/" className={styles.brand}>
-        NomadeLife <span>DEV</span>
+      <NavLink className={styles.brand} to="/">
+        <div>
+          <img src={logo} alt="Brand" width="50px" height="30px" /> Mini <span>Blog</span>
+        </div>
       </NavLink>
       <ul className={styles.links_list}>
         <li>
@@ -20,15 +25,6 @@ const Navbar = () => {
             Home
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/about"
-            className={({ isActive }) => (isActive ? styles.active : "")}
-          >
-            About
-          </NavLink>
-        </li>
-
         {!user && (
           <>
             <li>
@@ -36,7 +32,7 @@ const Navbar = () => {
                 to="/login"
                 className={({ isActive }) => (isActive ? styles.active : "")}
               >
-                Login
+                Entrar
               </NavLink>
             </li>
             <li>
@@ -44,7 +40,7 @@ const Navbar = () => {
                 to="/register"
                 className={({ isActive }) => (isActive ? styles.active : "")}
               >
-                Register
+                Cadastrar
               </NavLink>
             </li>
           </>
@@ -56,7 +52,7 @@ const Navbar = () => {
                 to="/posts/create"
                 className={({ isActive }) => (isActive ? styles.active : "")}
               >
-                Create Post
+                Novo post
               </NavLink>
             </li>
             <li>
@@ -67,17 +63,22 @@ const Navbar = () => {
                 Dashboard
               </NavLink>
             </li>
-            {user && (
-              <li>
-                <NavLink
-                  className={({ isActive }) => (isActive ? styles.active : "")}
-                  onClick={logout}
-                >
-                  Logout
-                </NavLink>
-              </li>
-            )}
           </>
+        )}
+        <li>
+          <NavLink
+            to="/about"
+            className={({ isActive }) => (isActive ? styles.active : "")}
+          >
+            Sobre
+          </NavLink>
+        </li>
+        {user && (
+          <li>
+            <button onClick={logout} className={styles.exit}>
+              <img src={sair} width="20" height="20" />
+            </button>
+          </li>
         )}
       </ul>
     </nav>

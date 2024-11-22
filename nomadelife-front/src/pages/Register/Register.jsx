@@ -1,119 +1,93 @@
-import styles from "./Register.module.css";
-import { useState, useEffect } from "react";
-import { useAuthentication } from "../../hooks/useAuthentication";
+import { useState, useEffect } from 'react'
+import { useAuthentication } from '../../hooks/useAuthentication'
 
 const Register = () => {
-  const [displayName, setDisplayName] = useState("");
-  const [email, setEmail] = useState(""); 
-  const [password, setPassword] = useState("");
-  const [confirmPassowrd, setConfirmPassword] = useState("");
-  const [error, setError] = useState(null);
+  //#region Controller Service
+  const [displayName, setDisplayName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [corfirmedPassword, setCorfirmedPassword] = useState('')
+  const [error, setError] = useState('')
 
-  const { createUser, error: authError, loading } = useAuthentication();
+  const { createUser, error: authError, loading } = useAuthentication()
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-
+  const handlerSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
     const user = {
       displayName,
       email,
-      password,
-      confirmPassowrd,
-    };
-
-    if (password !== confirmPassowrd) {
-      setError("As senhas não se coincidem");
-      return;
+      password
     }
 
-    if (!validateEmail(email)) {
-        setError("Email inválido");
-        return;
-      }
+    if (password != corfirmedPassword) {
+      setError('As senhas precisam ser iguais.')
+      return
+    }
 
-      try {
-        await createUser(user);
-      } catch {
-        setError("Erro ao criar usuário. Tente novamente.");
-    };
-};
+    const res = await createUser(user)
+    
+    console.table(res)
+  }
 
   useEffect(() => {
     if (authError) {
-      setError(authError);
+      setError(authError)
     }
-  }, [authError]);
-  
-
+  }, [authError])
+  //#endregion
+  //#region View Browser Page
   return (
-    <div className={styles.register}>
+    <div>
       <h1>Compartilhe suas experiências com outros nomades</h1>
-      <form action="" onSubmit={handleSubmit}>
-        <label htmlFor="">
-          <span>Nome:</span>
+      <form onSubmit={handlerSubmit}>
+        <label>
+          <span>Nome: </span>
           <input
             type="text"
             name="displayName"
             required
-            placeholder="Nome do Usuário"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-          />
+            placeholder="Entre con seu nomade nome"></input>
         </label>
-        <label htmlFor="">
-          <span>Email:</span>
+        <label>
+          <span>E-mail: </span>
           <input
             type="email"
             name="email"
             required
-            placeholder="Email do Usuário"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          />
+            placeholder="Entre com seu e-mail"></input>
         </label>
-        <label htmlFor="">
-          <span>Senha:</span>
+        <label>
+          <span>Senha: </span>
           <input
             type="password"
             name="password"
             required
-            placeholder="Senha deve ter no mínimo 6 caracteres"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
+            placeholder="Entre com sua senha"></input>
         </label>
-        <label htmlFor="">
-          <span>Confirmar Senha:</span>
+        <label>
+          <span>Confirmação: </span>
           <input
             type="password"
-            name="confirmPassword"
+            name="corfirmedPassword"
             required
-            placeholder="Confirme sua Senha"
-            value={confirmPassowrd}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+            value={corfirmedPassword}
+            onChange={(e) => setCorfirmedPassword(e.target.value)}
+            placeholder="Entre com sua senha"></input>
         </label>
-        {!loading && (
-          <button type="submit" className="btn">
-            Cadastrar
-          </button>
-        )}
-        {loading && (
-          <button type="submit" disabled className="btn">
-            Carregando...
-          </button>
-        )}
-
-        {error && <p className="error">{error}</p>}
+        {!loading && <button className="btn">Cadastrar</button>}
+        {loading && <button className="btn" disabled>Aguarde...</button>}
+        {error && <p className='error'>{error}</p>}
       </form>
     </div>
-  );
-};
+  )
+  //#endregion
+}
 
-export default Register;
+export default Register

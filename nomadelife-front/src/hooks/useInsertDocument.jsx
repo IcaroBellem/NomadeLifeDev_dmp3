@@ -8,49 +8,50 @@ const initialState = {
 }
 
 const insertReducer = (state, action) => {
-    switch (action.type) {
+    switch(action.type){
         case "LOADING":
-            return { loading: true, error: null }
+            return {loading: true, error: null}
         case "INSERT_DOC":
-            return { loadin: false, error: null }
+            return {loading: false, error: null}
         case "ERROR":
-            return { loading: false, error: null }
+            return {loading: false, error: action.payload}
         default:
             return state
     }
 }
 
-export const useInsertDocument = (docColletion) => {
+export const useInsertDocument = (docCollection) => {
     const [response, dispath] = useReducer(insertReducer, initialState)
     const [cancelled, setCancelled] = useState(false)
 
     const checkCancelBeforeDispath = (action) => {
-        if (!cancelled) {
+        if(!cancelled){
             dispath(action)
         }
     }
 
     const insertDocument = async (document) => {
-        checkReducerBeforeDispatch({ type: "LOADING" })
+        checkCancelBeforeDispath({type:"LOADING"})
 
-        try {
-            const newDocument = { ...document, createAt: Timestamp.now() }
+        try{
+            const newDocument = {...document, createAt: Timestamp.now()}
             const insertDocument = await addDoc(
-                collection(db, dbColletion),
+                collection(db, docCollection),
                 newDocument
             )
 
             checkCancelBeforeDispath({
-                type: "INSERT_DOC",
+                type:"INSERT_DOC",
                 payload: insertDocument
             })
         }catch(error){
             checkCancelBeforeDispath({
-                type:"ERROR",
-                payload:error.message
+                type:'ERROR',
+                payload: error.message
             })
-        }    
+        }
     }
+
     useEffect(() => {
         return () => setCancelled(true)
     },[])
